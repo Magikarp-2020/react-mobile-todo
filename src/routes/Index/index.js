@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { bind } from 'decko';
 import FixBar from '../../components/FixBar/index';
 
 class Index extends Component {
@@ -11,14 +10,12 @@ class Index extends Component {
     };
   }
 
-  @bind
-  handleNavClick() {
-
+  componentDidMount() {
   }
 
   render() {
     return (
-      <FixBar>
+      <FixBar history={this.props.history}>
         sadfhasdflkajsdf
       </FixBar>
     );
