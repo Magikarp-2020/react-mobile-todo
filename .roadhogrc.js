@@ -17,5 +17,6 @@ export default {
       ]
     }
   },
-  'publicPath': '/react-mobile-todo/'
+  'publicPath': '/react-mobile-todo/dist/',
+  'hash': true
 };
