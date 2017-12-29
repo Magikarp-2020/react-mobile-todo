@@ -16,5 +16,6 @@ export default {
         'transform-decorators-legacy'
       ]
     }
-  }
+  },
+  'publicPath': '/react-mobile-todo/'
 };
