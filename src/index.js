@@ -1,5 +1,6 @@
 import dva from 'dva';
 import './index.css';
+import { installModel } from './models/index';
 
 // 1. Initialize
 const app = dva();
@@ -8,7 +9,8 @@ const app = dva();
 // app.use({});
 
 // 3. Model
-app.model(require('./models/fixBar'));
+// app.model(require('./models/fixBar'));
+installModel(app);
 
 // 4. Router
 app.router(require('./router'));

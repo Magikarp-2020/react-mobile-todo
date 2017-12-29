@@ -9,20 +9,28 @@ class FixBar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedTab: 'blueTab'
+      selectedTab: 'blueTab',
     };
   }
 
   componentDidMount() {
-    console.log(this.props);
   }
 
   @bind
   handlerTabBarItemClick(item) {
-    this.props.dispatch({
-      type: 'fixBar/updateSelectTab',
-      payload: item
-    });
+    switch (item) {
+      case 'list':
+        this.props.history.push('/');
+        break;
+      case 'new':
+        this.props.history.push('/new');
+        break;
+      case 'my':
+        this.props.history.push('/my');
+        break;
+      default:
+        throw new Error('no case');
+    }
   }
 
   render() {
@@ -39,17 +47,83 @@ class FixBar extends Component {
             barTintColor="white"
           >
             <TabBar.Item
-              title="Life"
-              key="Life"
-              selected={this.props.fixBar.selectedTab === 'blueTab'}
-              icon={{ uri: 'https://zos.alipayobjects.com/rmsportal/asJMfBrNqpMMlVpeInPQ.svg' }}
-              selectedIcon={{ uri: 'https://zos.alipayobjects.com/rmsportal/gjpzzcrPMkhfEqgbYvmN.svg' }}
+              title="新增"
+              key="New"
+              selected={this.props.fixBar.selectedTab === 'new'}
+              icon={
+                <div
+                  style={{
+                    width: '22px',
+                    height: '22px',
+                  }}
+                  className="iconfont icon-write"
+                />
+              }
+              selectedIcon={
+                <div
+                  style={{
+                    width: '22px',
+                    height: '22px',
+                  }}
+                  className="iconfont icon-writefill"
+                />
+              }
               onPress={() => {
-                this.handlerTabBarItemClick('blueTab');
+                this.handlerTabBarItemClick('new');
               }}
-              data-seed="logId"
-            >
-            </TabBar.Item>
+            />
+            <TabBar.Item
+              title="列表"
+              key="List"
+              selected={this.props.fixBar.selectedTab === 'list'}
+              icon={
+                <div
+                  style={{
+                    width: '22px',
+                    height: '22px',
+                  }}
+                  className="iconfont icon-form_light"
+                />
+              }
+              selectedIcon={
+                <div
+                  style={{
+                    width: '22px',
+                    height: '22px',
+                  }}
+                  className="iconfont icon-form_fill_light"
+                />
+              }
+              onPress={() => {
+                this.handlerTabBarItemClick('list');
+              }}
+            />
+            <TabBar.Item
+              title="我的"
+              key="My"
+              selected={this.props.fixBar.selectedTab === 'my'}
+              icon={
+                <div
+                  style={{
+                    width: '22px',
+                    height: '22px',
+                  }}
+                  className="iconfont icon-people"
+                />
+              }
+              selectedIcon={
+                <div
+                  style={{
+                    width: '22px',
+                    height: '22px',
+                  }}
+                  className="iconfont icon-peoplefill"
+                />
+              }
+              onPress={() => {
+                this.handlerTabBarItemClick('my');
+              }}
+            />
           </TabBar>
         </div>
       </div>
@@ -59,7 +133,7 @@ class FixBar extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    fixBar: state['fixBar']
+    fixBar: state.fixBar,
   };
 };
 

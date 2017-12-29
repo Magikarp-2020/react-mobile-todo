@@ -1,4 +1,5 @@
 import fetch from 'dva/fetch';
+import merge from 'merge';
 
 function parseJSON(response) {
   return response.json();
@@ -22,9 +23,15 @@ function checkStatus(response) {
  * @return {object}           An object containing either "data" or "err"
  */
 export default function request(url, options) {
-  return fetch(url, options)
+  const opts = {};
+  opts.body = JSON.stringify(options.data);
+  opts.headers = {
+    'Content-Type': 'application/json',
+  };
+
+  return fetch(url, merge.recursive(true, options, opts))
     .then(checkStatus)
     .then(parseJSON)
-    .then(data => ({ data }))
+    .then(data => (data))
     .catch(err => ({ err }));
 }

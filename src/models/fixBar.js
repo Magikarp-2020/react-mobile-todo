@@ -1,14 +1,41 @@
 export default {
   namespace: 'fixBar',
   state: {
-    selectedTab: ''
+    selectedTab: '',
   },
   reducers: {
     updateSelectTab(state, { payload: data }) {
-      console.log('123123');
       return {
-        selectedTab: data
+        selectedTab: data,
       };
     },
-  }
+  },
+  subscriptions: {
+    setup({ dispatch, history }) {
+      return history.listen(({ pathname }) => {
+        switch (pathname) {
+          case '/':
+            dispatch({
+              type: 'updateSelectTab',
+              payload: 'list',
+            });
+            break;
+          case '/new':
+            dispatch({
+              type: 'updateSelectTab',
+              payload: 'new',
+            });
+            break;
+          case '/my':
+            dispatch({
+              type: 'updateSelectTab',
+              payload: 'my',
+            });
+            break;
+          default :
+            throw new Error('no case');
+        }
+      });
+    },
+  },
 };
