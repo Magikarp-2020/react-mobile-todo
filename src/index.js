@@ -1,6 +1,6 @@
 import dva from 'dva';
 import './index.css';
-import {installModel} from './models/index';
+import { installModel } from './models/index';
 
 // 1. Initialize
 const app = dva();

@@ -1,26 +1,22 @@
+import { connect } from 'dva';
+import { bind } from 'decko';
+import { DatePicker, InputItem, List, TextareaItem } from 'antd-mobile';
+
 import React, { Component } from 'react';
 import FixBar from '../../components/FixBar/index';
-import { DatePicker, InputItem, List, TextareaItem } from 'antd-mobile';
-import { bind } from 'decko';
-import { connect } from 'dva';
 
 class New extends Component {
   constructor(props) {
     super(props);
     this.state = {
       hasError: false,
-      value: ''
+      value: '',
     };
   }
 
   @bind
-  onChange() {
-
-  }
-
-  @bind
-  onErrorClick() {
-
+  onErrorClick(e) {
+    this.hasError = e;
   }
 
   render() {
@@ -36,9 +32,9 @@ class New extends Component {
                 type: 'new/updateForm',
                 payload: {
                   title: {
-                    value
-                  }
-                }
+                    value,
+                  },
+                },
               });
             }}
             value={this.props.newForm.title.value}
@@ -54,9 +50,9 @@ class New extends Component {
                 type: 'new/updateForm',
                 payload: {
                   content: {
-                    value
-                  }
-                }
+                    value,
+                  },
+                },
               });
             }}
             rows="3"
@@ -71,9 +67,9 @@ class New extends Component {
                 type: 'new/updateForm',
                 payload: {
                   startTime: {
-                    value: value
-                  }
-                }
+                    value,
+                  },
+                },
               });
             }}
           >
@@ -92,7 +88,7 @@ class New extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    newForm: state['new']
+    newForm: state.new,
   };
 };
 

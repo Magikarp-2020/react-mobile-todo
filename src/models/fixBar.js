@@ -1,12 +1,12 @@
 export default {
   namespace: 'fixBar',
   state: {
-    selectedTab: ''
+    selectedTab: '',
   },
   reducers: {
     updateSelectTab(state, { payload: data }) {
       return {
-        selectedTab: data
+        selectedTab: data,
       };
     },
   },
@@ -17,23 +17,25 @@ export default {
           case '/':
             dispatch({
               type: 'updateSelectTab',
-              payload: 'list'
+              payload: 'list',
             });
             break;
           case '/new':
             dispatch({
               type: 'updateSelectTab',
-              payload: 'new'
+              payload: 'new',
             });
             break;
           case '/my':
             dispatch({
               type: 'updateSelectTab',
-              payload: 'my'
+              payload: 'my',
             });
             break;
+          default :
+            throw new Error('no case');
         }
       });
-    }
-  }
+    },
+  },
 };

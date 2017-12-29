@@ -9,7 +9,7 @@ class FixBar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedTab: 'blueTab'
+      selectedTab: 'blueTab',
     };
   }
 
@@ -28,6 +28,8 @@ class FixBar extends Component {
       case 'my':
         this.props.history.push('/my');
         break;
+      default:
+        throw new Error('no case');
     }
   }
 
@@ -49,16 +51,22 @@ class FixBar extends Component {
               key="New"
               selected={this.props.fixBar.selectedTab === 'new'}
               icon={
-                <div style={{
-                  width: '22px',
-                  height: '22px'
-                }} className="iconfont icon-write" />
+                <div
+                  style={{
+                    width: '22px',
+                    height: '22px',
+                  }}
+                  className="iconfont icon-write"
+                />
               }
               selectedIcon={
-                <div style={{
-                  width: '22px',
-                  height: '22px'
-                }} className="iconfont icon-writefill" />
+                <div
+                  style={{
+                    width: '22px',
+                    height: '22px',
+                  }}
+                  className="iconfont icon-writefill"
+                />
               }
               onPress={() => {
                 this.handlerTabBarItemClick('new');
@@ -69,16 +77,22 @@ class FixBar extends Component {
               key="List"
               selected={this.props.fixBar.selectedTab === 'list'}
               icon={
-                <div style={{
-                  width: '22px',
-                  height: '22px'
-                }} className="iconfont icon-form_light" />
+                <div
+                  style={{
+                    width: '22px',
+                    height: '22px',
+                  }}
+                  className="iconfont icon-form_light"
+                />
               }
               selectedIcon={
-                <div style={{
-                  width: '22px',
-                  height: '22px'
-                }} className="iconfont icon-form_fill_light" />
+                <div
+                  style={{
+                    width: '22px',
+                    height: '22px',
+                  }}
+                  className="iconfont icon-form_fill_light"
+                />
               }
               onPress={() => {
                 this.handlerTabBarItemClick('list');
@@ -89,16 +103,22 @@ class FixBar extends Component {
               key="My"
               selected={this.props.fixBar.selectedTab === 'my'}
               icon={
-                <div style={{
-                  width: '22px',
-                  height: '22px'
-                }} className="iconfont icon-people" />
+                <div
+                  style={{
+                    width: '22px',
+                    height: '22px',
+                  }}
+                  className="iconfont icon-people"
+                />
               }
               selectedIcon={
-                <div style={{
-                  width: '22px',
-                  height: '22px'
-                }} className="iconfont icon-peoplefill" />
+                <div
+                  style={{
+                    width: '22px',
+                    height: '22px',
+                  }}
+                  className="iconfont icon-peoplefill"
+                />
               }
               onPress={() => {
                 this.handlerTabBarItemClick('my');
@@ -113,7 +133,7 @@ class FixBar extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    fixBar: state['fixBar']
+    fixBar: state.fixBar,
   };
 };
 

@@ -6,7 +6,7 @@ class Index extends Component {
     super(props);
     this.state = {
       selectedTab: 'blueTab',
-      hidden: false
+      hidden: false,
     };
   }
 
