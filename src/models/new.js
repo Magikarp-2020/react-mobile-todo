@@ -25,6 +25,10 @@ export default {
       label: '结束时间',
       value: new Date(new Date().getTime() + 100000),
     },
+    push: {
+      label: '推送',
+      value: false,
+    },
   },
   reducers: {
     updateForm(state, { payload: data }) {

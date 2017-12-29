@@ -3,6 +3,7 @@
 const installModel = (app) => {
   app.model(require('./new'));
   app.model(require('./fixBar'));
+  app.model(require('./list'));
 };
 
 export {
