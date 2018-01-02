@@ -89,7 +89,7 @@ class New extends Component {
             <List.Item arrow="horizontal">结束时间</List.Item>
           </DatePicker>
         </List>
-        <List renderHeader="提醒">
+        <List renderHeader={this.props.newForm.modules.remind}>
           <List.Item
             extra={<Switch
               checked={this.props.newForm.push.value}
@@ -105,8 +105,9 @@ class New extends Component {
                 });
               }}
             />}
-          >推送</List.Item>
-
+          >
+            {this.props.newForm.push.label}
+          </List.Item>
         </List>
         <WhiteSpace size="lg" />
         <WingBlank>

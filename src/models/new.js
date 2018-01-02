@@ -6,6 +6,7 @@ export default {
     modules: {
       info: '基础信息',
       time: '时间信息',
+      remind: '提醒',
     },
     title: {
       placeholder: '请输入标题',
