@@ -33,7 +33,7 @@ export default {
             });
             break;
           default :
-            throw new Error('no case');
+            break;
         }
       });
     },

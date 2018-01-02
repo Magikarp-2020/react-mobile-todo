@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { List, PullToRefresh } from 'antd-mobile';
 import { connect } from 'dva';
+import { bind } from 'decko';
 
 import FixBar from '../../components/FixBar/index';
 
@@ -37,6 +38,11 @@ class Index extends Component {
     });
   }
 
+  @bind
+  handlerItemClick(id) {
+    this.props.history.push(`/detail/${id}`);
+  }
+
   render() {
     return (
       <FixBar history={this.props.history}>
@@ -59,7 +65,9 @@ class Index extends Component {
                 <List.Item
                   arrow="horizontal"
                   multipleLine
-                  onClick={() => {}}
+                  onClick={() => {
+                    this.handlerItemClick(item.id);
+                  }}
                   key={index}
                 >{item.title}<List.Item.Brief>{item.content}</List.Item.Brief>
                 </List.Item>

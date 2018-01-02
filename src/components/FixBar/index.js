@@ -29,7 +29,7 @@ class FixBar extends Component {
         this.props.history.push('/my');
         break;
       default:
-        throw new Error('no case');
+        break;
     }
   }
 
