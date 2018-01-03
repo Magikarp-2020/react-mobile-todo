@@ -24,6 +24,28 @@ export default {
         loading,
       });
     },
+    setNotification(state) {
+      return {
+        data: state.data.map((item) => {
+          const time = item.startTime - new Date().getTime();
+          let timer = null;
+          if (time > 0) {
+            timer = setTimeout(() => {
+              /* eslint no-new: 0 */
+              new window.Notification(item.title, {
+                body: item.content,
+                tag: item.id,
+                icon: 'https://reactnative.cn/static/docs/0.51/img/react-native-congratulations.png',
+              });
+            }, time);
+          }
+          return {
+            ...item,
+            timer,
+          };
+        }),
+      };
+    },
   },
   effects: {
     * fetch({ payload }, { call, put }) {
@@ -44,6 +66,9 @@ export default {
       yield put({
         type: 'setLoading',
         payload: false,
+      });
+      yield put({
+        type: 'setNotification',
       });
     },
   },

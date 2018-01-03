@@ -5,6 +5,8 @@ import { bind } from 'decko';
 
 import FixBar from '../../components/FixBar/index';
 
+const Notification = window.Notification;
+
 class Index extends Component {
   constructor(props) {
     super(props);
@@ -21,7 +23,36 @@ class Index extends Component {
     if (!this.props.list.data.length) {
       this.fetchData({});
     }
+    this.notificationInit();
   }
+
+  @bind
+  setNotification() {
+    //
+    this.props.dispatch({
+      type: 'list/setNotification',
+    });
+  }
+
+  @bind
+  notificationInit() {
+    // 先检查浏览器是否支持
+    if (!('Notification' in window)) {
+      // console.log('This browser does not support desktop notification');
+    } else if (Notification.permission === 'granted') {
+      this.setNotification();
+    } else if (Notification.permission !== 'denied') {
+      Notification.requestPermission((permission) => {
+        // 如果用户同意，就可以向他们发送通知
+        if (permission === 'granted') {
+          this.setNotification();
+        }
+      });
+    }
+    // 最后，如果用户已经授权了相关通知
+    // 你出于尊重，就不需要再打扰他们了
+  }
+
 
   /**
    *

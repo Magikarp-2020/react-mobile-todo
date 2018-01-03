@@ -5,7 +5,31 @@ export default {
     res.send(newFormSubmit);
   },
   'POST /api/list': (req, res) => {
-    res.send(require('./mock/list.json'));
+    res.send({
+      'errorCode': 0,
+      'status': true,
+      'content': {
+        'pageSize': 10,
+        'pageNumber': 0,
+        'total': 100,
+        'content': [
+          {
+            'title': '标题',
+            'content': '内容',
+            'id': 1,
+            'startTime': '1514969760000',
+            'endTime': '1515056455000',
+          },
+          {
+            'title': '标题',
+            'content': '内容',
+            'id': 2,
+            'startTime': '1514970055000',
+            'endTime': '1515056455000',
+          }
+        ]
+      }
+    });
   },
   'GET /api/detail/:id': (req, res) => {
     res.send({
