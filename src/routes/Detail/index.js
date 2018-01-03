@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
-import { Drawer, Icon, List, NavBar, Modal } from 'antd-mobile';
+import { Icon, List, NavBar, Modal, Popover } from 'antd-mobile';
 import { connect } from 'dva';
 import { bind } from 'decko';
 import moment from 'moment';
-
-import style from './style.less';
 
 const alert = Modal.alert;
 
@@ -13,6 +11,7 @@ class Detail extends Component {
     super(props);
     this.state = {
       open: false,
+      visible: false,
     };
   }
 
@@ -22,6 +21,14 @@ class Detail extends Component {
       type: 'detail/fetch',
       payload: id,
     });
+  }
+
+  @bind
+  onSelect(opts) {
+    if (opts.props.value === 'delete') {
+      this.handleVisibleChange(false);
+      this.handlerDeleteClick();
+    }
   }
 
   @bind
@@ -43,9 +50,22 @@ class Detail extends Component {
         text: '确定',
         onPress: () => {
           this.changeOpenStatus(false);
+          this.handlerGoBack();
         },
       },
     ]);
+  }
+
+  @bind
+  handleVisibleChange(visible) {
+    this.setState({
+      visible,
+    });
+  }
+
+  @bind
+  handlerGoBack() {
+    this.props.history.goBack();
   }
 
   render() {
@@ -54,65 +74,68 @@ class Detail extends Component {
         <NavBar
           mode="light"
           icon={<Icon type="left" />}
-          onLeftClick={() => {
-            this.changeOpenStatus(true);
-          }}
-          rightContent={[
-            <Icon
-              onClick={() => {
-                this.changeOpenStatus(true);
+          onLeftClick={this.handlerGoBack}
+          rightContent={
+            <Popover
+              mask
+              overlayClassName="fortest"
+              overlayStyle={{ color: 'currentColor' }}
+              visible={this.state.visible}
+              overlay={[
+                (<Popover.Item value="delete">删除</Popover.Item>),
+              ]}
+              align={{
+                overflow: { adjustY: 0, adjustX: 0 },
+                offset: [-10, 0],
               }}
-              key="1"
-              type="ellipsis"
-            />,
-          ]}
-        >详情</NavBar>
-        <Drawer
-          className={style.drawer}
-          style={{ minHeight: document.documentElement.clientHeight - 45 }}
-          enableDragHandle
-          sidebarStyle={{ background: '#ffffff' }}
-          position="right"
-          sidebar={
-            <List className={style.drawerList}>
-              <List.Item onClick={this.handlerDeleteClick}>删除</List.Item>
-            </List>
+              onVisibleChange={this.handleVisibleChange}
+              onSelect={this.onSelect}
+            >
+              <div
+                style={{
+                  height: '100%',
+                  padding: '0 15px',
+                  marginRight: '-15px',
+                  display: 'flex',
+                  alignItems: 'center',
+                }}
+              >
+                <Icon type="ellipsis" />
+              </div>
+            </Popover>
           }
-          open={this.state.open}
-          onOpenChange={this.changeOpenStatus}
-        >
-          <List renderHeader={this.props.newForm.modules.info}>
-            <List.Item
-              extra={this.props.detail.data.title}
-            >
-              {this.props.newForm.title.label}
-            </List.Item>
-            <List.Item
-              extra={this.props.detail.data.content}
-            >
-              {this.props.newForm.content.label}
-            </List.Item>
-          </List>
-          <List renderHeader={this.props.newForm.modules.time}>
-            <List.Item
-              extra={this.props.detail.data.startTime ? moment(+this.props.detail.data.startTime).format('YYYY-MM-DD HH:mm:ss') : ''}
-            >
-              {this.props.newForm.startTime.label}
-            </List.Item>
-            <List.Item
-              extra={this.props.detail.data.endTime ? moment(+this.props.detail.data.endTime).format('YYYY-MM-DD HH:mm:ss') : ''}
-            >
-              {this.props.newForm.endTime.label}
-            </List.Item>
-          </List>
-          <List renderHeader={this.props.newForm.modules.remind}>
-            <List.Item
-              extra={this.props.detail.data.push ? '是' : '否'}
-            >
-              {this.props.newForm.push.label}
-            </List.Item>
-          </List>
-        </Drawer>
+        >详情</NavBar>
+        <List renderHeader={this.props.newForm.modules.info}>
+          <List.Item
+            extra={this.props.detail.data.title}
+          >
+            {this.props.newForm.title.label}
+          </List.Item>
+          <List.Item
+            extra={this.props.detail.data.content}
+          >
+            {this.props.newForm.content.label}
+          </List.Item>
+        </List>
+        <List renderHeader={this.props.newForm.modules.time}>
+          <List.Item
+            extra={this.props.detail.data.startTime ? moment(+this.props.detail.data.startTime).format('YYYY-MM-DD HH:mm:ss') : ''}
+          >
+            {this.props.newForm.startTime.label}
+          </List.Item>
+          <List.Item
+            extra={this.props.detail.data.endTime ? moment(+this.props.detail.data.endTime).format('YYYY-MM-DD HH:mm:ss') : ''}
+          >
+            {this.props.newForm.endTime.label}
+          </List.Item>
+        </List>
+        <List renderHeader={this.props.newForm.modules.remind}>
+          <List.Item
+            extra={this.props.detail.data.push ? '是' : '否'}
+          >
+            {this.props.newForm.push.label}
+          </List.Item>
+        </List>
       </div>
     );
   }
