@@ -7,6 +7,7 @@ export default {
   state: {
     data: [],
     loading: false,
+    needRefresh: false,
   },
   reducers: {
     clearData(state) {
@@ -46,6 +47,12 @@ export default {
         }),
       };
     },
+    changeNeedRefresh(state, { payload: needRefresh }) {
+      return {
+        ...state,
+        needRefresh,
+      };
+    },
   },
   effects: {
     * fetch({ payload }, { call, put }) {
@@ -53,7 +60,7 @@ export default {
         type: 'setLoading',
         payload: true,
       });
-      const listData = yield call(listServices.getList, payload.pageNumber);
+      const listData = yield call(listServices.getList);
       if (payload.clear) {
         yield put({
           type: 'clearData',
@@ -61,7 +68,7 @@ export default {
       }
       yield put({
         type: 'add',
-        payload: listData.content.content,
+        payload: listData,
       });
       yield put({
         type: 'setLoading',

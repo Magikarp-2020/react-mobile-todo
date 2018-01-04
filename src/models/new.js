@@ -35,5 +35,26 @@ export default {
     updateForm(state, { payload: data }) {
       return merge.recursive(true, state, data);
     },
+    init(state, {
+      payload: data = {
+        title: {
+          value: '',
+        },
+        content: {
+          value: '',
+        },
+        startTime: {
+          value: new Date(),
+        },
+        endTime: {
+          value: new Date(new Date().getTime() + 100000),
+        },
+        push: {
+          value: false,
+        },
+      },
+    }) {
+      return merge.recursive(true, state, data);
+    },
   },
 };

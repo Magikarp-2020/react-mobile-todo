@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'dva';
 import { bind } from 'decko';
-import { Button, DatePicker, InputItem, List, Switch, TextareaItem, WhiteSpace, WingBlank } from 'antd-mobile';
+import { Button, DatePicker, InputItem, List, Switch, TextareaItem, WhiteSpace, WingBlank, Toast } from 'antd-mobile';
 
 import * as newFormServices from '../../services/newForm';
 import FixBar from '../../components/FixBar/index';
@@ -15,6 +15,12 @@ class New extends Component {
     };
   }
 
+  componentWillUnmount() {
+    this.props.dispatch({
+      type: 'new/init',
+    });
+  }
+
   @bind
   onErrorClick(e) {
     this.hasError = e;
@@ -22,9 +28,13 @@ class New extends Component {
 
   @bind
   handlerSubmit() {
-    newFormServices.submitNewForm(this.state).then(() => {
-      this.props.history.push('/');
+    newFormServices.submitNewForm(this.props.newForm);
+    this.props.dispatch({
+      type: 'list/changeNeedRefresh',
+      payload: true,
     });
+    Toast.success('提交成功', 1);
+    this.props.history.push('/');
   }
 
   render() {

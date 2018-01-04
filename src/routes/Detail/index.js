@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Icon, List, NavBar, Modal, Popover } from 'antd-mobile';
+import { Icon, List, NavBar, Modal, Popover, Toast } from 'antd-mobile';
 import { connect } from 'dva';
 import { bind } from 'decko';
 import moment from 'moment';
@@ -50,10 +50,24 @@ class Detail extends Component {
         text: '确定',
         onPress: () => {
           this.changeOpenStatus(false);
+          this.deleteItem();
+          Toast.success('删除成功', 1);
           this.handlerGoBack();
         },
       },
     ]);
+  }
+
+  deleteItem() {
+    const id = this.props.match.params.id;
+    this.props.dispatch({
+      type: 'detail/deleteById',
+      payload: id,
+    });
+    this.props.dispatch({
+      type: 'list/changeNeedRefresh',
+      payload: true,
+    });
   }
 
   @bind

@@ -20,8 +20,14 @@ class Index extends Component {
   }
 
   componentWillMount() {
-    if (!this.props.list.data.length) {
-      this.fetchData({});
+    if (!this.props.list.data.length || this.props.list.needRefresh) {
+      this.fetchData({
+        clear: this.props.list.needRefresh,
+      });
+      this.props.dispatch({
+        type: 'list/changeNeedRefresh',
+        payload: false,
+      });
     }
     this.notificationInit();
   }
@@ -52,7 +58,6 @@ class Index extends Component {
     // 最后，如果用户已经授权了相关通知
     // 你出于尊重，就不需要再打扰他们了
   }
-
 
   /**
    *

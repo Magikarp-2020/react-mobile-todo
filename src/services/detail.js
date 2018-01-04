@@ -1,11 +1,14 @@
-import request from '../utils/request';
+import { deleteListId } from './list';
 
 const getDetail = (id = '') => {
-  return request(`/api/detail/${id}`, {
-    method: 'get',
-  });
+  return JSON.parse(window.localStorage.getItem(`todo-detail-${id}`));
+};
+
+const deleteById = (id = '') => {
+  deleteListId(id);
 };
 
 export {
   getDetail,
+  deleteById,
 };

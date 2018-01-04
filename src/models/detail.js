@@ -22,6 +22,12 @@ export default {
         payload: false,
       });
     },
+    * deleteById({ payload: id }, { call, put }) {
+      yield call(detailServices.deleteById, id);
+      yield put({
+        type: 'clear',
+      });
+    },
   },
   reducers: {
     set(state, { payload: data }) {
@@ -34,6 +40,12 @@ export default {
       return {
         ...state,
         loading,
+      };
+    },
+    clear(state) {
+      return {
+        ...state,
+        data: {},
       };
     },
   },
